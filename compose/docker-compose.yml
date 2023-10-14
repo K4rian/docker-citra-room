@@ -1,0 +1,23 @@
+services:
+  citra-room:
+    image: k4rian/citra-room:latest
+    container_name: citra-room
+    volumes:
+      - data:/home/citra
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - citra-room.env
+    secrets:
+      - citraroom
+    ports:
+      - 24872:24872 # TCP/UDP
+    ulimits:
+      memlock: -1
+    restart: unless-stopped
+
+volumes:
+  data:
+
+secrets:
+  citraroom:
+    file: ./secret.txt
