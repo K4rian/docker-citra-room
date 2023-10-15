@@ -107,10 +107,10 @@ git clone https://github.com/K4rian/docker-citra-room.git .
 
 - Then run the following command inside the newly created folder:
 ```bash
-docker build --no-cache -t k4rian/docker-citra-room .
+docker build --no-cache -t k4rian/citra-room .
 ```
 > The building process can take up to 5 minutes depending on your hardware specs. <br>
-> A quad-core CPU with at least 1 GB of RAM and 3-5 GB of disk space is recommended for the compilation.
+> A quad-core CPU with at least 1 GB of RAM and 2 GB of disk space is recommended for the compilation.
 
 <!---
 ## See also
