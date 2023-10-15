@@ -63,7 +63,7 @@ docker ps | grep "citra"
 
 To see the server log output:
 ```bash
-docker compose logs citra-room
+docker compose -p citra-room logs
 ```
 
 ## Stop the container
@@ -74,5 +74,5 @@ docker compose -p citra-room down
 
 Both the container and its volume can be removed by providing the `-v` argument:
 ```bash
-docker compose -f citra-room down -v
+docker compose -p citra-room down -v
 ```

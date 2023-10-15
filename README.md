@@ -91,7 +91,7 @@ docker run -d \
 ```
 
 ## Using Compose
-See [compose](compose/).
+See [compose/README.md](compose/)
 
 ## Manual build
 __Requirements__:<br>
@@ -109,7 +109,7 @@ git clone https://github.com/K4rian/docker-citra-room.git .
 ```bash
 docker build --no-cache -t k4rian/docker-citra-room .
 ```
-> The building process can take up to 5 minutes depending of your hardware specs. <br>
+> The building process can take up to 5 minutes depending on your hardware specs. <br>
 > A quad-core CPU with at least 1 GB of RAM and 3-5 GB of disk space is recommended for the compilation.
 
 <!---
