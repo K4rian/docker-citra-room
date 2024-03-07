@@ -8,7 +8,6 @@ RUN apk update \
         ca-certificates \
         cmake \
         glslang \
-        jq \
         libstdc++ \
         linux-headers \
         ninja-build \
@@ -18,8 +17,7 @@ RUN apk update \
     && export PATH=$PATH:/bin:/usr/local/bin:/usr/bin:/sbin:/usr/lib/ninja-build/bin \
     && mkdir -p /server/lib /tmp/citra/build \
     && cd /tmp/citra \
-    && citra_src_url="$(wget -O- "https://api.github.com/repos/citra-emu/citra-nightly/releases/latest" | jq -rc '.assets[] | .browser_download_url | match("https://.+citra-unified-source-.+.xz$") | .string')" \
-    && wget -c "${citra_src_url}" -O citra-unified.tar.xz \
+    && wget -c "https://github.com/K4rian/docker-citra-room/releases/download/v0.2798/citra-unified-source-20240304-d996981.tar.xz" -O citra-unified.tar.xz \
     && tar --strip-components=1 -xf citra-unified.tar.xz \
     && cd /tmp/citra/build \
     && { echo "#!/bin/ash"; \
@@ -66,10 +64,12 @@ ENV CITRA_LOGFILE "citra-room.log"
 ENV CITRA_ROOMDESC ""
 ENV CITRA_PREFGAMEID "0"
 ENV CITRA_PASSWORD ""
-ENV CITRA_ISPUBLIC 0
-ENV CITRA_TOKEN ""
-ENV CITRA_WEBAPIURL "https://api.citra-emu.org/"
-ENV CITRA_ENABLEMODS 0
+# Legacy
+# Requires a custom API
+#ENV CITRA_ISPUBLIC 0
+#ENV CITRA_TOKEN ""
+#ENV CITRA_WEBAPIURL "https://api.citra-emu.org/"
+#ENV CITRA_ENABLEMODS 0
 
 RUN apk update \
     && adduser --disabled-password $USERNAME \

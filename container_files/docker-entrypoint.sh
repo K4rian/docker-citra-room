@@ -41,24 +41,26 @@ if [ ! "x$s_password" = "x" ]; then
   add_optional_arg "--password" "\"${s_password}\""
 fi
 
-if [ ! "x$CITRA_ISPUBLIC" = "x" ] \
- && [ $CITRA_ISPUBLIC = 1 ]; then
-  if [ ! "x$CITRA_TOKEN" = "x" ]; then
-    add_optional_arg "--token" "\"${CITRA_TOKEN}\""
-  fi
+# if [ ! "x$CITRA_ISPUBLIC" = "x" ] \
+#  && [ $CITRA_ISPUBLIC = 1 ]; then
+#   if [ ! "x$CITRA_TOKEN" = "x" ]; then
+#     add_optional_arg "--token" "\"${CITRA_TOKEN}\""
+#   fi
 
-  if [ ! "x$CITRA_WEBAPIURL" = "x" ]; then
-    add_optional_arg "--web-api-url" "\"${CITRA_WEBAPIURL}\""
-  fi
+#   if [ ! "x$CITRA_WEBAPIURL" = "x" ]; then
+#     add_optional_arg "--web-api-url" "\"${CITRA_WEBAPIURL}\""
+#   fi
 
-  if [ ! "x$CITRA_ENABLEMODS" = "x" ] \
-   && [ $CITRA_ENABLEMODS = 1 ]; then
-    add_optional_arg "--enable-citra-mods"
-  fi
-fi
+#   if [ ! "x$CITRA_ENABLEMODS" = "x" ] \
+#    && [ $CITRA_ENABLEMODS = 1 ]; then
+#     add_optional_arg "--enable-citra-mods"
+#   fi
+# fi
 
+echo ""
 echo "░█▀▀░▀█▀░▀█▀░█▀▄░█▀█░░░█▀▄░█▀▀░█▀▄░▀█▀░█▀▀░█▀█░▀█▀░█▀▀░█▀▄░░░█▀▄░█▀█░█▀█░█▄█"
 echo "░█░░░░█░░░█░░█▀▄░█▀█░░░█░█░█▀▀░█░█░░█░░█░░░█▀█░░█░░█▀▀░█░█░░░█▀▄░█░█░█░█░█░█"
 echo "░▀▀▀░▀▀▀░░▀░░▀░▀░▀░▀░░░▀▀░░▀▀▀░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀░░░░▀░▀░▀▀▀░▀▀▀░▀░▀"
+echo ""
 
 eval "$s_command"
