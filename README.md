@@ -10,7 +10,7 @@ The server allows you to play many [supported local wireless games][4] via netpl
 
 Docker Tag  | Version | Description    | Platform
 ---         | ---     | ---            | ---
-[latest][5] | 1.1     | Latest release | amd64, arm64
+[latest][5] | 1.2     | Latest release (Canary 2798) | amd64, arm64
 </div>
 <p align="center"><a href="#environment-variables">Environment variables</a> &bull; <a href="#password-protection">Password protection</a> &bull; <a href="#usage">Usage</a> &bull; <a href="#using-compose">Using Compose</a> &bull; <a href="#manual-build">Manual build</a> <!-- &bull; <a href="#see-also">See also</a> --> &bull; <a href="#license">License</a></p>
 
@@ -32,10 +32,12 @@ CITRA_LOGFILE      | citra-room.log              | File path to store the logs.
 CITRA_ROOMDESC     |                             | (Optional) Description of the room.
 CITRA_PREFGAMEID   | 0                           | (Optional) Preferred game title identifier. You can find the Title ID with the game list of Citra (right-click on a game -> `Properties`).
 CITRA_PASSWORD     |                             | (Optional) Room password *(__NOT__ recommended, see the section below)*.
+<!---
 CITRA_ISPUBLIC     | 0                           | (Optional) Make the room public. Valid User Token and Web API URL are required.
 CITRA_TOKEN        |                             | (Optional) The Citra Community user token to use for the room. Required to make the room public.
 CITRA_WEBAPIURL    | https://api.citra-emu.org/  | (Optional) URL to the Citra Web API. Required to make the room public.
 CITRA_ENABLEMODS   | 0                           | (Optional) Grant the Citra Community Moderators the power to moderate the room.
+-->
 
 </details>
 
@@ -52,7 +54,9 @@ This method is __NOT__ recommended for production since all environment variable
 ## Usage
 __Example 1:__<br>
 Run a public server for `TLOZ: Triforce Heroes` on port `44872` with a maximum of `12 members`:<br>
+<!--
 — *You need a valid __[Citra Community Token][6]__ to make the server reachable via the public room browser.*
+-->
 ```bash
 docker run -d \
   --name citra-room \
@@ -63,8 +67,6 @@ docker run -d \
   -e CITRA_PREFGAME="Tri Force Heroes" \
   -e CITRA_PREFGAMEID="0004000000177000" \
   -e CITRA_MAXMEMBERS=12 \
-  -e CITRA_ISPUBLIC=1 \
-  -e CITRA_TOKEN="<CITRA_USER_TOKEN>" \
   -i k4rian/citra-room:latest
 ```
 
@@ -121,11 +123,13 @@ docker build --no-cache -t k4rian/citra-room .
 ## License
 [MIT][8]
 
-[1]: https://citra-emu.org/ "Citra Project Website"
+[1]: https://web.archive.org/web/20240304214217/https://citra-emu.org/ "Citra Project Website (Archive/March 4, 2024)"
 [2]: https://www.alpinelinux.org/ "Alpine Linux Official Website"
 [3]: https://hub.docker.com/_/alpine "Alpine Linux Docker Image"
 [4]: https://en.wikipedia.org/wiki/List_of_Nintendo_3DS_Wi-Fi_Connection_games "List of 3DS Wi-Fi Connection Games"
 [5]: https://github.com/K4rian/docker-citra-room/blob/master/Dockerfile "Latest Dockerfile"
+<!--
 [6]: https://citra-emu.org/wiki/citra-web-service/ "Citra Web Service Page"
+-->
 [7]: https://github.com/K4rian/docker-citra-room/tree/master/compose "Compose Files"
 [8]: https://github.com/K4rian/docker-citra-room/blob/master/LICENSE
