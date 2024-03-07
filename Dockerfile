@@ -10,6 +10,7 @@ RUN apk update \
         glslang \
         jq \
         libstdc++ \
+        linux-headers \
         ninja-build \
         openssl-dev \
         wget \
