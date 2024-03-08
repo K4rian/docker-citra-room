@@ -17,7 +17,7 @@ RUN apk update \
     && export PATH=$PATH:/bin:/usr/local/bin:/usr/bin:/sbin:/usr/lib/ninja-build/bin \
     && mkdir -p /server/lib /tmp/citra/build \
     && cd /tmp/citra \
-    && wget -c "https://github.com/K4rian/docker-citra-room/releases/download/v0.2798/carany-unified-source-20240304-d996981.tar.xz" -O citra-unified.tar.xz \
+    && wget -c "https://github.com/K4rian/docker-citra-room/releases/download/v0.2798/canary-unified-source-20240304-d996981.tar.xz" -O citra-unified.tar.xz \
     && tar --strip-components=1 -xf citra-unified.tar.xz \
     && cd /tmp/citra/build \
     && { echo "#!/bin/ash"; \
