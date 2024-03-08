@@ -60,7 +60,8 @@ Run a public server for `TLOZ: Triforce Heroes` on port `44872` with a maximum o
 ```bash
 docker run -d \
   --name citra-room \
-  -p 44872:44872 \
+  -p 44872:44872/tcp \
+  -p 44872:44872/udp \
   -e CITRA_PORT=44872 \
   -e CITRA_ROOMNAME="USA East - Tri Force Heroes" \
   -e CITRA_ROOMDESC="A room dedicated to TLOZ: Tri Force Heroes" \
@@ -76,7 +77,8 @@ Run a private password-protected server using default configuration:<br>
 ```bash
 docker run -d \
   --name citra-room \
-  -p 24872:24872 \
+  -p 24872:24872/tcp \
+  -p 24872:24872/udp \
   -v "$(pwd)"/secret.txt:/run/secrets/citraroom:ro \
   -i k4rian/citra-room:latest
 ```
@@ -86,7 +88,8 @@ Run a password-protected __testing__ server on port `6666`:<br>
 ```bash
 docker run -d \
   --name citra-room-test \
-  -p 6666:6666 \
+  -p 6666:6666/tcp \
+  -p 6666:6666/udp \
   -e CITRA_PORT=6666 \
   -e CITRA_PASSWORD="testing" \
   -i k4rian/citra-room:latest
