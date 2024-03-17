@@ -41,26 +41,44 @@ if [ ! "x$s_password" = "x" ]; then
   add_optional_arg "--password" "\"${s_password}\""
 fi
 
-# if [ ! "x$CITRA_ISPUBLIC" = "x" ] \
-#  && [ $CITRA_ISPUBLIC = 1 ]; then
-#   if [ ! "x$CITRA_TOKEN" = "x" ]; then
-#     add_optional_arg "--token" "\"${CITRA_TOKEN}\""
-#   fi
+if [ ! "x$CITRA_ISPUBLIC" = "x" ] \
+  && [ $CITRA_ISPUBLIC = 1 ]; then
+  if [ ! "x$CITRA_TOKEN" = "x" ]; then
+    add_optional_arg "--token" "\"${CITRA_TOKEN}\""
+  fi
 
-#   if [ ! "x$CITRA_WEBAPIURL" = "x" ]; then
-#     add_optional_arg "--web-api-url" "\"${CITRA_WEBAPIURL}\""
-#   fi
+  if [ ! "x$CITRA_WEBAPIURL" = "x" ]; then
+    add_optional_arg "--web-api-url" "\"${CITRA_WEBAPIURL}\""
+  fi
+fi
 
-#   if [ ! "x$CITRA_ENABLEMODS" = "x" ] \
-#    && [ $CITRA_ENABLEMODS = 1 ]; then
-#     add_optional_arg "--enable-citra-mods"
-#   fi
-# fi
+print_header() {
+  local pf="● %-19s %-25s\n"
 
-echo ""
-echo "░█▀▀░▀█▀░▀█▀░█▀▄░█▀█░░░█▀▄░█▀▀░█▀▄░▀█▀░█▀▀░█▀█░▀█▀░█▀▀░█▀▄░░░█▀▄░█▀█░█▀█░█▄█"
-echo "░█░░░░█░░░█░░█▀▄░█▀█░░░█░█░█▀▀░█░█░░█░░█░░░█▀█░░█░░█▀▀░█░█░░░█▀▄░█░█░█░█░█░█"
-echo "░▀▀▀░▀▀▀░░▀░░▀░▀░▀░▀░░░▀▀░░▀▀▀░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀░░░░▀░▀░▀▀▀░▀▀▀░▀░▀"
-echo ""
+  [ ! "x$CITRA_ROOMDESC" = "x" ] && room_desc="${CITRA_ROOMDESC}" || room_desc="(unset)"
+  [ ! "x$s_password" = "x" ] && room_pass="Yes" || room_pass="No"
+  [ $CITRA_ISPUBLIC = 1 ] && room_public="Yes" || room_public="No"
+  [ ! "x$CITRA_PREFGAMEID" = "x" ] && room_pgid="${CITRA_PREFGAMEID}" || room_pgid="(unset)"
+  [ ! "x$CITRA_WEBAPIURL" = "x" ] && room_api="${CITRA_WEBAPIURL}" || room_api="(unset)"
 
+  printf "\n"
+  printf "░█▀▀░▀█▀░▀█▀░█▀▄░█▀█░░░█▀▄░█▀▀░█▀▄░▀█▀░█▀▀░█▀█░▀█▀░█▀▀░█▀▄░░░█▀▄░█▀█░█▀█░█▄█\n"
+  printf "░█░░░░█░░░█░░█▀▄░█▀█░░░█░█░█▀▀░█░█░░█░░█░░░█▀█░░█░░█▀▀░█░█░░░█▀▄░█░█░█░█░█░█\n"
+  printf "░▀▀▀░▀▀▀░░▀░░▀░▀░▀░▀░░░▀▀░░▀▀▀░▀▀░░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀░░░░▀░▀░▀▀▀░▀▀▀░▀░▀\n"
+  printf "\n"
+  printf "$pf" "Port:" "${CITRA_PORT}"
+  printf "$pf" "Name:" "${CITRA_ROOMNAME}"
+  printf "$pf" "Description:" "${room_desc}"
+  printf "$pf" "Password:" "${room_pass}"
+  printf "$pf" "Public:" "${room_public}"
+  printf "$pf" "Preferred Game:" "${CITRA_PREFGAME}"
+  printf "$pf" "Preferred Game ID:" "${room_pgid}"
+  printf "$pf" "Maximum Members:" "${CITRA_MAXMEMBERS}"
+  printf "$pf" "Banlist File:" "${CITRA_BANLISTFILE}"
+  printf "$pf" "Log File:" "${CITRA_LOGFILE}"
+  printf "$pf" "Web API URL:" "${room_api}"
+  printf "\n"
+}
+
+print_header
 eval "$s_command"

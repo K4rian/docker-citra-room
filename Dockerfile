@@ -64,12 +64,9 @@ ENV CITRA_LOGFILE "citra-room.log"
 ENV CITRA_ROOMDESC ""
 ENV CITRA_PREFGAMEID "0"
 ENV CITRA_PASSWORD ""
-# Legacy
-# Requires a custom API
-#ENV CITRA_ISPUBLIC 0
-#ENV CITRA_TOKEN ""
-#ENV CITRA_WEBAPIURL "https://api.citra-emu.org/"
-#ENV CITRA_ENABLEMODS 0
+ENV CITRA_ISPUBLIC 0
+ENV CITRA_TOKEN ""
+ENV CITRA_WEBAPIURL ""
 
 RUN apk update \
     && adduser --disabled-password $USERNAME \

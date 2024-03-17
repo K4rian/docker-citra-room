@@ -8,9 +8,9 @@ The server allows you to play many [supported local wireless games][4] via netpl
 ---
 <div align="center">
 
-Docker Tag  | Version | Description    | Platform
----         | ---     | ---            | ---
-[latest][5] | 1.2     | Latest release (Canary 2798) | amd64, arm64
+Docker Tag  | Version | Platform     | Description
+---         | ---     | ---          | ---
+[latest][5] | 1.3     | amd64, arm64 | Latest release (Canary 2798)
 </div>
 <p align="center"><a href="#environment-variables">Environment variables</a> &bull; <a href="#password-protection">Password protection</a> &bull; <a href="#usage">Usage</a> &bull; <a href="#using-compose">Using Compose</a> &bull; <a href="#manual-build">Manual build</a> <!-- &bull; <a href="#see-also">See also</a> --> &bull; <a href="#license">License</a></p>
 
@@ -21,28 +21,25 @@ Some environment variables can be tweaked when creating a container to define th
 <details>
 <summary>Click to expand</summary>
 
-Variable           | Default value               | Description 
----                | ---                         | ---
-CITRA_PORT         | 24872                       | Port to listen on (TCP/UDP).
-CITRA_ROOMNAME     | Citra Room                  | Name of the room.
-CITRA_PREFGAME     | Any                         | Name of the preferred game.
-CITRA_MAXMEMBERS   | 4                           | Maximum number of members (2-16).
-CITRA_BANLISTFILE  | bannedlist.cbl              | File which Citra will store ban records in.
-CITRA_LOGFILE      | citra-room.log              | File path to store the logs.
-CITRA_ROOMDESC     |                             | (Optional) Description of the room.
-CITRA_PREFGAMEID   | 0                           | (Optional) Preferred game title identifier. You can find the Title ID with the game list of Citra (right-click on a game -> `Properties`).
-CITRA_PASSWORD     |                             | (Optional) Room password *(__NOT__ recommended, see the section below)*.
-<!---
-CITRA_ISPUBLIC     | 0                           | (Optional) Make the room public. Valid User Token and Web API URL are required.
-CITRA_TOKEN        |                             | (Optional) The Citra Community user token to use for the room. Required to make the room public.
-CITRA_WEBAPIURL    | https://api.citra-emu.org/  | (Optional) URL to the Citra Web API. Required to make the room public.
-CITRA_ENABLEMODS   | 0                           | (Optional) Grant the Citra Community Moderators the power to moderate the room.
--->
+Variable          | Default value  | Description
+---               | ---            | ---
+CITRA_PORT        | 24872          | Port to listen on (TCP/UDP).
+CITRA_ROOMNAME    | Citra Room     | Name of the room.
+CITRA_PREFGAME    | Any            | Name of the preferred game.
+CITRA_MAXMEMBERS  | 4              | Maximum number of members (2-16).
+CITRA_BANLISTFILE | bannedlist.cbl | File which Citra will store ban records in.
+CITRA_LOGFILE     | citra-room.log | File path to store the logs.
+CITRA_ROOMDESC    |                | (Optional) Description of the room.
+CITRA_PREFGAMEID  | 0              | (Optional) Preferred game title identifier. You can find the Title ID with the game list of Citra (right-click on a game -> `Properties`).
+CITRA_PASSWORD    |                | (Optional) Room password *(__NOT__ recommended, see the section below)*.
+CITRA_ISPUBLIC    | 0              | (Optional) Make the room public. Valid User Token and Web API URL are required.
+CITRA_TOKEN       |                | (Optional) The user token to use for the room. Required to make the room public.
+CITRA_WEBAPIURL   |                | (Optional) URL to a custom web API. Required to make the room public.
 
 </details>
 
 ## Password protection
-The server can be protected with a (clear, unencrypted) password by:  
+The server can be protected with a (clear, unencrypted) password by:
 
 — Bind mount a text file containing the password into the container.<br>
 The mountpoint path has to be `/run/secrets/citraroom`.<br>
@@ -54,9 +51,7 @@ This method is __NOT__ recommended for production since all environment variable
 ## Usage
 __Example 1:__<br>
 Run a public server for `TLOZ: Triforce Heroes` on port `44872` with a maximum of `12 members`:<br>
-<!--
-— *You need a valid __[Citra Community Token][6]__ to make the server reachable via the public room browser.*
--->
+— *You need a valid __User Token__ to make the server reachable via the public room browser.*
 ```bash
 docker run -d \
   --name citra-room \
@@ -68,7 +63,10 @@ docker run -d \
   -e CITRA_PREFGAME="Tri Force Heroes" \
   -e CITRA_PREFGAMEID="0004000000177000" \
   -e CITRA_MAXMEMBERS=12 \
-  -i k4rian/citra-room:latest
+  -e CITRA_ISPUBLIC=1 \
+  -e CITRA_TOKEN="<USER_TOKEN>" \
+  -e CITRA_WEBAPIURL="<CUSTOM_API_URL>" \
+  -i k4rian/citra-room
 ```
 
 __Example 2:__<br>
@@ -80,7 +78,7 @@ docker run -d \
   -p 24872:24872/tcp \
   -p 24872:24872/udp \
   -v "$(pwd)"/secret.txt:/run/secrets/citraroom:ro \
-  -i k4rian/citra-room:latest
+  -i k4rian/citra-room
 ```
 
 __Example 3:__<br />
@@ -92,11 +90,11 @@ docker run -d \
   -p 6666:6666/udp \
   -e CITRA_PORT=6666 \
   -e CITRA_PASSWORD="testing" \
-  -i k4rian/citra-room:latest
+  -i k4rian/citra-room
 ```
 
 ## Using Compose
-See [compose/README.md][7]
+See [compose/README.md][6]
 
 ## Manual build
 __Requirements__:<br>
@@ -124,15 +122,12 @@ docker build --no-cache -t k4rian/citra-room .
 --->
 
 ## License
-[MIT][8]
+[MIT][7]
 
 [1]: https://web.archive.org/web/20240304214217/https://citra-emu.org/ "Citra Project Website (Archive/March 4, 2024)"
 [2]: https://www.alpinelinux.org/ "Alpine Linux Official Website"
 [3]: https://hub.docker.com/_/alpine "Alpine Linux Docker Image"
 [4]: https://en.wikipedia.org/wiki/List_of_Nintendo_3DS_Wi-Fi_Connection_games "List of 3DS Wi-Fi Connection Games"
 [5]: https://github.com/K4rian/docker-citra-room/blob/master/Dockerfile "Latest Dockerfile"
-<!--
-[6]: https://citra-emu.org/wiki/citra-web-service/ "Citra Web Service Page"
--->
-[7]: https://github.com/K4rian/docker-citra-room/tree/master/compose "Compose Files"
-[8]: https://github.com/K4rian/docker-citra-room/blob/master/LICENSE
+[6]: https://github.com/K4rian/docker-citra-room/tree/master/compose "Compose Files"
+[7]: https://github.com/K4rian/docker-citra-room/blob/master/LICENSE
