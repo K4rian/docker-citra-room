@@ -122,7 +122,7 @@ docker build --no-cache -t k4rian/citra-room .
 --->
 
 ## License
-[MIT][7]
+[GPL-2.0][7]
 
 [1]: https://web.archive.org/web/20240304214217/https://citra-emu.org/ "Citra Project Website (Archive/March 4, 2024)"
 [2]: https://www.alpinelinux.org/ "Alpine Linux Official Website"
