@@ -2,6 +2,7 @@ services:
   citra-room:
     image: k4rian/citra-room:latest
     container_name: citra-room
+    hostname: citra-room
     volumes:
       - data:/home/citra
       - /etc/localtime:/etc/localtime:ro
@@ -12,8 +13,6 @@ services:
     ports:
       - 24872:24872/tcp
       - 24872:24872/udp
-    ulimits:
-      memlock: -1
     restart: unless-stopped
 
 volumes:

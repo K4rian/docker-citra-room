@@ -1,5 +1,5 @@
 # Build the server binary
-FROM alpine:latest as builder
+FROM alpine:latest AS builder
 
 RUN apk update \
     && apk -U add --no-cache \
@@ -21,15 +21,17 @@ RUN apk update \
     && tar --strip-components=1 -xf citra-unified.tar.xz \
     && cd /tmp/citra/build \
     && { echo "#!/bin/ash"; \
+         echo "LDFLAGS=\"-flto -fuse-linker-plugin -fuse-ld=gold\""; \
          echo "CFLAGS=\"-ftree-vectorize -flto\""; \
          echo "if [[ \"$(uname -m)\" == \"aarch64\" ]]; then"; \
-         echo "  CFLAGS=\"$CFLAGS -march=armv8-a+crc+crypto\""; \
+         echo "  CFLAGS=\"-O2\""; \
+         echo "  LDFLAGS=\"\""; \
          echo "elif [[ \"$(uname -m)\" == \"x86_64\" ]]; then"; \
          echo "  CFLAGS=\"$CFLAGS -march=core2 -mtune=intel\""; \
          echo "fi"; \
          echo "export CFLAGS"; \
          echo "export CXXFLAGS=\"$CFLAGS\""; \
-         echo "export LDFLAGS=\"-flto -fuse-linker-plugin -fuse-ld=gold\""; \
+         echo "export LDFLAGS"; \
          echo "cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release \\"; \
          echo " -DENABLE_SDL2=OFF -DENABLE_QT=OFF -DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF \\"; \
          echo " -DUSE_DISCORD_PRESENCE=OFF -DENABLE_FFMPEG_VIDEO_DUMPER=OFF -DUSE_SYSTEM_OPENSSL=ON \\"; \
@@ -54,19 +56,19 @@ ENV USERNAME citra
 ENV USERHOME /home/$USERNAME
 
 # Required
-ENV CITRA_PORT 24872
-ENV CITRA_ROOMNAME "Citra Room"
-ENV CITRA_PREFGAME "Any"
-ENV CITRA_MAXMEMBERS 4
-ENV CITRA_BANLISTFILE "bannedlist.cbl"
-ENV CITRA_LOGFILE "citra-room.log"
+ENV CITRA_PORT=24872
+ENV CITRA_ROOMNAME="Citra Room"
+ENV CITRA_PREFGAME="Any"
+ENV CITRA_MAXMEMBERS=4
+ENV CITRA_BANLISTFILE="bannedlist.cbl"
+ENV CITRA_LOGFILE="citra-room.log"
 # Optional
-ENV CITRA_ROOMDESC ""
-ENV CITRA_PREFGAMEID "0"
-ENV CITRA_PASSWORD ""
-ENV CITRA_ISPUBLIC 0
-ENV CITRA_TOKEN ""
-ENV CITRA_WEBAPIURL ""
+ENV CITRA_ROOMDESC=""
+ENV CITRA_PREFGAMEID="0"
+ENV CITRA_PASSWORD=""
+ENV CITRA_ISPUBLIC=0
+ENV CITRA_TOKEN=""
+ENV CITRA_WEBAPIURL=""
 
 RUN apk update \
     && adduser --disabled-password $USERNAME \

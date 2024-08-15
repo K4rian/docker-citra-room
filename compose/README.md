@@ -17,6 +17,7 @@ services:
   citra-room:
     image: k4rian/citra-room:latest
     container_name: citra-room
+    hostname: citra-room
     volumes:
       - data:/home/citra
       - /etc/localtime:/etc/localtime:ro
@@ -27,8 +28,6 @@ services:
     ports:
       - 24872:24872/tcp
       - 24872:24872/udp
-    ulimits:
-      memlock: -1
     restart: unless-stopped
 
 volumes:
@@ -39,14 +38,14 @@ secrets:
     file: ./secret.txt
 ```
 
-> The environment file *[citra-room.env](citra-room.env)* holds the server environment variables.
-> 
-> The server password is defined in the *[secret.txt](secret.txt)* file.   
-> — Compose will mount it to `/run/secrets/citraroom` within the container.
-> 
-> The secret name has to be `citraroom`.  
-> 
-> To make the server public, the `secrets` definitions in the compose file have to be omitted.
+* The environment file *[citra-room.env](citra-room.env)* holds the server environment variables.
+
+* The server password is defined in the *[secret.txt](secret.txt)* file.<br>
+Compose will mount it to `/run/secrets/citraroom` within the container.
+
+* The secret name must be `citraroom`.  
+
+* To make the server public, omit the `secrets` definitions in the Compose file.
 
 ## Deployment
 ```bash
