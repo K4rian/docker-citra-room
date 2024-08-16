@@ -10,8 +10,8 @@ The server allows you to play many [supported local wireless games][4] via netpl
 
 Docker Tag  | Version | Platform     | Description
 ---         | ---     | ---          | ---
-[latest][5] | 1.4     | amd64, arm64 | Latest release (Canary 2798)
-[1.4][5]    | 1.4     | amd64, arm64 | Latest release (Canary 2798)
+[latest][9] | 1.4     | amd64, arm64 | Latest release (Canary 2798)
+[1.4][9]    | 1.4     | amd64, arm64 | Latest release (Canary 2798)
 [1.3][8]    | 1.3     | amd64        | v1.3 (Legacy) (Canary 2798)
 </div>
 
@@ -136,3 +136,4 @@ docker build --no-cache -t k4rian/citra-room .
 [6]: https://github.com/K4rian/docker-citra-room/tree/master/compose "Compose Files"
 [7]: https://github.com/K4rian/docker-citra-room/blob/master/LICENSE
 [8]: https://github.com/K4rian/docker-citra-room/blob/7c611552114efa1ec9cd388e6196115addc970bf/Dockerfile "Dockerfile v1.3"
+[9]: https://github.com/K4rian/docker-citra-room/blob/cd98c4bcfef80df4dad9f2870dde6544153a8a75/Dockerfile "Dockerfile v1.4"
