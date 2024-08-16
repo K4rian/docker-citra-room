@@ -17,7 +17,7 @@ services:
   citra-room:
     image: k4rian/citra-room:latest
     container_name: citra-room
-    hostname: citra-room
+    hostname: citra
     volumes:
       - data:/home/citra
       - /etc/localtime:/etc/localtime:ro

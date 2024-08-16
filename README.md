@@ -14,6 +14,8 @@ Docker Tag  | Version | Platform     | Description
 [1.4][5]    | 1.4     | amd64, arm64 | Latest release (Canary 2798)
 [1.3][8]    | 1.3     | amd64        | v1.3 (Legacy) (Canary 2798)
 </div>
+
+---
 <p align="center"><a href="#environment-variables">Environment variables</a> &bull; <a href="#password-protection">Password protection</a> &bull; <a href="#usage">Usage</a> &bull; <a href="#using-compose">Using Compose</a> &bull; <a href="#manual-build">Manual build</a> <!-- &bull; <a href="#see-also">See also</a> --> &bull; <a href="#license">License</a></p>
 
 ---
@@ -43,23 +45,22 @@ CITRA_WEBAPIURL   |                | (Optional) URL to a custom web API. Require
 ## Password protection
 The server can be protected with a (clear, unencrypted) password by:
 
-— Bind mount a text file containing the password into the container.<br>
-The mountpoint path has to be `/run/secrets/citraroom`.<br>
+— Bind mounting a text file containing the password into the container.<br>
+The mount point path must be `/run/secrets/citraroom`.<br>
 This is the __recommended__ method. See the second example in the section below.
 
 — Using the `CITRA_PASSWORD` environment variable when creating the container.<br>
-This method is __NOT__ recommended for production since all environment variables are visible via `docker inspect` to any user that can use the `docker` command. 
+This method is __NOT__ recommended for production, as all environment variables are visible via `docker inspect` to any user that can use the `docker` command. 
 
 ## Usage
 __Example 1:__<br>
-Run a public server for `TLOZ: Triforce Heroes` on port `44872` with a maximum of `12 members`:<br>
+Run a public server for `TLOZ: Triforce Heroes` on default port `24872` with a maximum of `12 members`:<br>
 — *You need a valid __User Token__ to make the server reachable via the public room browser.*
 ```bash
 docker run -d \
   --name citra-room \
-  -p 44872:44872/tcp \
-  -p 44872:44872/udp \
-  -e CITRA_PORT=44872 \
+  -p 24872:24872/tcp \
+  -p 24872:24872/udp \
   -e CITRA_ROOMNAME="USA East - Tri Force Heroes" \
   -e CITRA_ROOMDESC="A room dedicated to TLOZ: Tri Force Heroes" \
   -e CITRA_PREFGAME="Tri Force Heroes" \
@@ -72,13 +73,14 @@ docker run -d \
 ```
 
 __Example 2:__<br>
-Run a private password-protected server using default configuration:<br>
+Run a password-protected server with default settings on port `44872`:<br>
 — *In this example, the password is stored in the `secret.txt` file located in the current working directory.* 
 ```bash
 docker run -d \
   --name citra-room \
-  -p 24872:24872/tcp \
-  -p 24872:24872/udp \
+  -p 44872:44872/tcp \
+  -p 44872:44872/udp \
+  -e CITRA_PORT=44872 \
   -v "$(pwd)"/secret.txt:/run/secrets/citraroom:ro \
   -i k4rian/citra-room
 ```
