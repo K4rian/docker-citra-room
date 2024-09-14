@@ -4,17 +4,17 @@ WORKDIR /tmp/citra
 
 RUN apk update \
     && apk -U add --no-cache \
-        build-base=0.5-r3 \
-        binutils-gold=2.42-r0 \
-        ca-certificates=20240705-r0 \
-        cmake=3.29.3-r0 \
-        glslang=1.3.261.1-r0 \
-        libstdc++=13.2.1_git20240309-r0 \
-        linux-headers=6.6-r0 \
-        ninja-build=1.12.1-r0 \
-        openssl-dev=3.3.1-r3 \
-        wget=1.24.5-r0 \
-        xz=5.6.2-r0 \
+        build-base \
+        binutils-gold \
+        ca-certificates \
+        cmake \
+        glslang \
+        libstdc++ \
+        linux-headers \
+        ninja-build \
+        openssl-dev \
+        wget \
+        xz \
     && export PATH=$PATH:/bin:/usr/local/bin:/usr/bin:/sbin:/usr/lib/ninja-build/bin \
     && mkdir -p /server/lib /tmp/citra/build \
     && wget --show-progress -q -c -O "citra-unified.tar.xz" "https://github.com/K4rian/docker-citra-room/releases/download/v0.2798/canary-unified-source-20240304-d996981.tar.xz" \
